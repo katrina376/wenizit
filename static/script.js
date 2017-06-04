@@ -15,3 +15,7 @@ $$('.date').forEach(function (it) {
     $('#list-date-' + idx).className += ' chosen'
   })
 })
+
+$('#chosen').addEventListener('input', function (ev) {
+  $$('.date').forEach(function (itt) {itt.className = 'date'; });
+})

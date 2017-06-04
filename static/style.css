@@ -29,5 +29,9 @@ a.date.chosen {
   padding: 0.5em 1em;
   line-height: 1.6;
   width: 25%;
+}
 
+input {
+  font-size: 1em;
+  padding: 0.2em 0.4em;
 }
