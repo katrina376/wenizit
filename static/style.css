@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: 0 auto;
+}
+
+#content {
+  margin: 0 auto auto 0;
+  padding: 0.8em 1.6em;
+  line-height: 1.6;
+  width: 75%;
+}
+
+a.date {
+  background: #ACE
+}
+
+a.date.chosen {
+  background: #EAC
+}
+
+#panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0.5em 1em;
+  line-height: 1.6;
+  width: 25%;
+
+}
