@@ -12,9 +12,9 @@
         {% for c in content -%}
           {%- if c['is_date'] -%}
             {%- if c['chosen'] -%}
-              <a href="#" id="article-date-{{ loop.index }}"class="date chosen">{{ c['text'] }}</a>
+              <a href="#" id="article-date-{{ loop.index }}" class="date chosen">{{ c['text'] }}</a>
             {%- else -%}
-              <a href="#" id="article-date-{{ loop.index }}"class="date">{{ c['text'] }}</a>
+              <a href="#" id="article-date-{{ loop.index }}" class="date">{{ c['text'] }}</a>
             {%- endif -%}
           {%- else -%}
             {{ c['text'] }}
@@ -28,9 +28,9 @@
         {% for c in content -%}
           {%- if c['is_date'] -%}
             {%- if c['chosen'] -%}
-              <li><a href="#" id="list-date-{{ loop.index }}"class="date chosen">{{ c['text'] }}</a></li>
+              <li><a href="#" id="list-date-{{ loop.index }}" class="date chosen">{{ c['text'] }}</a></li>
             {%- else -%}
-              <li><a href="#" id="list-date-{{ loop.index }}"class="date">{{ c['text'] }}</a></li>
+              <li><a href="#" id="list-date-{{ loop.index }}" class="date">{{ c['text'] }}</a></li>
             {%- endif -%}
           {%- endif -%}
         {%- endfor %}
