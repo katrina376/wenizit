@@ -12,16 +12,16 @@
 ### 文件
 ```json
   {
-    "title": （標題）,
-    "content": （主文）,
-    "commit_date": （日期，未選擇時為空白）,
+    "title": "（標題）",
+    "content": "（主文）",
+    "commit_date": "（日期，未選擇時為空白）",
   }
 ```
 以 `*.json` 存放於 `data/` 內，並於 `list.txt` 中記錄文件檔名（不含副檔名）。
 
 ### 開始使用
 ```
-  $ export FLASK_APP=application.py
+  $ export FLASK_APP=application.py  # For linux and macOS
   $ flask run
 ```
 用瀏覽器打開 http://127.0.0.1:5000/<文件檔名>
