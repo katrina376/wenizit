@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>{{ judgement.courttitle }} - 判決書日期選擇器</title>
+    <link rel="stylesheet" type="text/css" href="static/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+  </head>
+  <body>
+    <section id="content">
+      <header>{{ judgement.courttitle }}</header>
+      <article>主文：{{ judgement.summary }}</article>
+      <article>理由事實：<br/>
+        {% for c in content -%}
+          {%- if c['is_date'] -%}
+            {%- if c['chosen'] -%}
+              <a href="#" id="article-date-{{ loop.index }}" class="date article-date select">{{ c['text'] }}</a>
+            {%- else -%}
+              <a href="#" id="article-date-{{ loop.index }}" class="date article-date">{{ c['text'] }}</a>
+            {%- endif -%}
+          {%- else -%}
+            {{ c['text'] }}
+          {%- endif -%}
+        {%- endfor %}
+      </article>
+    </section>
+    <section id="panel">
+      <div>共有 {{ count_of_date }} 個日期，如下：</div>
+      <ul>
+        {% for c in content -%}
+          {%- if c['is_date'] -%}
+            {%- if c['select'] -%}
+              <li><a href="#" id="list-date-{{ loop.index }}" class="date article-date select">{{ c['text'] }}</a></li>
+            {%- else -%}
+              <li><a href="#" id="list-date-{{ loop.index }}" class="date article-date">{{ c['text'] }}</a></li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor %}
+      </ul>
+      <hr/>
+      <form method="post" action="/{{ judgement._id }}/save">
+        <div>已經選擇的日期如下：</div>
+        <ul id="chosen-date">
+          {% for d in judgement.dates -%}
+          <li id="chosen-date-{{ loop.index }}-li">
+            <a href="#" id="chosen-date-{{ loop.index }}" class="date">
+              <span>{{ d }}</span><input type="hidden" value="{{ d }}" name="chosen-date"/>
+            </a>
+          </li>
+          {%- endfor %}
+        </ul>
+        <hr/>
+        <div>
+          <label for="typein">手動新增：</label>
+          <input id="typein" value=""/>
+          <button type="button" class="button" id="add">新增</button>
+        </div>
+        <hr/>
+        <button type="submit" class="button" id=save>儲存所有變更</button>
+      </form>
+    </section>
+    <script src="static/script.js"></script>
+  </body>
+</html>

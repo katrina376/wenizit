@@ -18,8 +18,41 @@ a.date {
   background: #ACE
 }
 
-a.date.chosen {
+a.date.select {
   background: #EAC
+}
+
+#list {
+  margin: 1em 2em;
+  table-layout: fixed;
+  border-collapse: collapse;
+
+}
+
+#list thead {
+  font-weight: bold;
+}
+
+#list #num {
+  width: 4%;
+}
+
+#list #courttitle {
+  width: 30%;
+}
+
+#list #summary {
+  width: 36%;
+}
+
+#list #state {
+  width: 30%;
+}
+
+#list td {
+  vertical-align: text-top;
+  border: 1px #AAA solid;
+  padding: 0.5em 1em;
 }
 
 #panel {

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>首頁 - 判決書日期選擇器</title>
+    <link rel="stylesheet" type="text/css" href="static/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/style.css">
+  </head>
+  <body>
+    <table id="list">
+      <thead>
+        <tr>
+          <td id="num">#</td>
+          <td id="courttitle">標題</td>
+          <td id="summary">主文</td>
+          <td id="state">狀態</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for j in judgements -%}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td><a href="/{{ j._id }}" target="_blank">{{ j.courttitle }}</a></td>
+          <td>{{ j.summary }}</td>
+          <td>
+            {% if j.dates|count > 0 -%}
+              <ul>
+                {% for d in j.dates -%}
+                <li>{{ d }}</li>
+                {%- endfor %}
+              </ul>
+            {%- else -%}
+              尚未處理
+            {%- endif%}
+          </td>
+        </tr>
+        {%- endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
