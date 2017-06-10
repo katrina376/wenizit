@@ -163,6 +163,6 @@ def skip(jid=None):
         if n.count() > 0:
             return 'Temporarily skipped! Go to <a href="/j/{jid}">the next document</a>.'.format(jid=n[0]['_id'])
         else:
-        return 'Temporarily skipped! Go back to <a href="/?show=both">the list</a>.'
+            return 'Temporarily skipped! Go back to <a href="/?show=both">the list</a>.'
     except:
         return 'Something went wrong. <a href="/j/{jid}">Go back</a> and try again.'.format(jid=jid)
