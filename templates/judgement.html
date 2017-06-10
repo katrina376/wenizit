@@ -3,42 +3,78 @@
   <head>
     <meta charset="utf-8"/>
     <title>{{ judgement.courttitle }} - 判決書日期選擇器</title>
-    <link rel="stylesheet" type="text/css" href="static/reset.css">
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
     <section id="content">
       <header>{{ judgement.courttitle }}</header>
-      <article>主文：{{ judgement.summary }}</article>
+      <article>Identity：{{ judgement.identity }}</article>
+      <article>主文：{{ judgement['主文'] }}</article>
+      <article>Imprisonment：{{ judgement.imprisonment }}</article>
       <article>理由事實：<br/>
         {% for c in content -%}
           {%- if c['is_date'] -%}
-            {%- if c['chosen'] -%}
-              <a href="#" id="article-date-{{ loop.index }}" class="date article-date select">{{ c['text'] }}</a>
+            {%- if c['select'] -%}
+              <a href="#" id="article-date-{{ loop.index }}" class="date article-date select">
+              {%- for char in c['chars'] -%}
+                {%- if char['highlight'] -%}
+                  <span class="highlight">{{ char['char'] }}</span>
+                {%- else -%}
+                  {{ char['char'] }}
+                {%- endif -%}
+              {%- endfor -%}
+              </a>
             {%- else -%}
-              <a href="#" id="article-date-{{ loop.index }}" class="date article-date">{{ c['text'] }}</a>
+              <a href="#" id="article-date-{{ loop.index }}" class="date article-date">
+                {%- for char in c['chars'] -%}
+                  {%- if char['highlight'] -%}
+                    <span class="highlight">{{ char['char'] }}</span>
+                  {%- else -%}
+                    {{ char['char'] }}
+                  {%- endif -%}
+                {%- endfor -%}
+              </a>
             {%- endif -%}
           {%- else -%}
-            {{ c['text'] }}
+            {%- for char in c['chars'] -%}
+              {%- if char['highlight'] -%}
+                <span class="highlight">{{ char['char'] }}</span>
+              {%- else -%}
+                {{ char['char'] }}
+              {%- endif -%}
+            {%- endfor -%}
           {%- endif -%}
         {%- endfor %}
       </article>
     </section>
     <section id="panel">
-      <div>共有 {{ count_of_date }} 個日期，如下：</div>
+      <div>文中共有 {{ count_of_date }} 個日期，如下：</div>
       <ul>
         {% for c in content -%}
-          {%- if c['is_date'] -%}
+          {%-if c['is_date'] -%}
             {%- if c['select'] -%}
-              <li><a href="#" id="list-date-{{ loop.index }}" class="date article-date select">{{ c['text'] }}</a></li>
+              <li>
+                <a href="#" id="list-date-{{ loop.index }}" class="date article-date select">
+                {%- for char in c['chars'] -%}
+                  {{ char['char'] }}
+                {%- endfor -%}
+                </a>
+              </li>
             {%- else -%}
-              <li><a href="#" id="list-date-{{ loop.index }}" class="date article-date">{{ c['text'] }}</a></li>
+              <li>
+                <a href="#" id="list-date-{{ loop.index }}" class="date article-date">
+                {%- for char in c['chars'] -%}
+                  {{ char['char'] }}
+                {%- endfor -%}
+                </a>
+              </li>
             {%- endif -%}
           {%- endif -%}
         {%- endfor %}
       </ul>
       <hr/>
-      <form method="post" action="/{{ judgement._id }}/save">
+      <form method="post" action="/j/{{ judgement._id }}/save">
         <div>已經選擇的日期如下：</div>
         <ul id="chosen-date">
           {% for d in judgement.dates -%}
@@ -56,9 +92,10 @@
           <button type="button" class="button" id="add">新增</button>
         </div>
         <hr/>
-        <button type="submit" class="button" id=save>儲存所有變更</button>
+        <a href="/j/{{ judgement._id }}/pass" class="button" id="pass">略過</a>
+        <button type="submit" class="button" id="save">儲存所有變更</button>
       </form>
     </section>
-    <script src="static/script.js"></script>
+    <script src="/static/script.js"></script>
   </body>
 </html>

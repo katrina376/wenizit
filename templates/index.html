@@ -3,39 +3,64 @@
   <head>
     <meta charset="utf-8"/>
     <title>首頁 - 判決書日期選擇器</title>
-    <link rel="stylesheet" type="text/css" href="static/reset.css">
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/reset.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
+    <div id="show-type">
+      顯示方式：
+      <a href="/">只顯示未處理</a>
+      <a href="/?show=true">只顯示已處理</a>
+      <a href="/?show=both">兩類皆顯示</a>
+    </div>
     <table id="list">
       <thead>
         <tr>
           <td id="num">#</td>
-          <td id="courttitle">標題</td>
-          <td id="summary">主文</td>
+          <td id="identity">Identity</td>
+          <td id="imprisonment">Imprisonment</td>
           <td id="state">狀態</td>
         </tr>
       </thead>
       <tbody>
         {% for j in judgements -%}
         <tr>
-          <td>{{ loop.index }}</td>
-          <td><a href="/{{ j._id }}" target="_blank">{{ j.courttitle }}</a></td>
-          <td>{{ j.summary }}</td>
+          <td>{{ loop.index + per_page * (current_page_num - 1) }}</td>
+          <td><a href="/j/{{ j._id }}" target="_blank">{{ j.identity }}</a></td>
+          <td>{{ j.imprisonment }}</td>
           <td>
-            {% if j.dates|count > 0 -%}
+            {% if j.state == True -%}
+            已處理，
+              {%- if j.dates|count > 0 -%}
+              選擇日期：
               <ul>
-                {% for d in j.dates -%}
+                {%- for d in j.dates -%}
                 <li>{{ d }}</li>
-                {%- endfor %}
+                {%- endfor -%}
               </ul>
+              {%- else -%}
+              未選擇任何日期
+              {%- endif %}
             {%- else -%}
-              尚未處理
-            {%- endif%}
+            尚未處理
+            {%- endif %}
           </td>
         </tr>
         {%- endfor %}
       </tbody>
     </table>
+    <div id="pagination">
+      {% for idx in range(lb, ub + 1) -%}
+        {%- if idx == current_page_num -%}
+          <span class="pagination-page">{{ idx }}</span>
+        {%- elif idx == lb -%}
+          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">...</a>
+        {%- elif idx == ub -%}
+          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">...</a>
+        {%- else -%}
+          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">{{ idx }}</a>
+        {%- endif -%}
+      {%- endfor %}
+    </div>
   </body>
 </html>

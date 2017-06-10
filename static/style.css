@@ -5,6 +5,7 @@
 body {
   position: relative;
   margin: 0 auto;
+  font-family: sans-serif;
 }
 
 #content {
@@ -14,19 +15,37 @@ body {
   width: 75%;
 }
 
-a.date {
-  background: #ACE
+#content a.date {
+  background: #fab005;
+  text-decoration: none;
+  color: #000;
 }
 
-a.date.select {
-  background: #EAC
+#content a.date:hover {
+  background: #d9480f;
+  text-decoration: none;
+  color: #fff;
+}
+
+a.date::before, a.date::after {
+  content: " ";
+}
+
+a.date.select, #content a.date.select {
+  background: #20c997;
+  color: #000;
+}
+
+a.date.select:hover, #content a.date.select:hover {
+  background: #087f5b;
+  color: #fff;
 }
 
 #list {
   margin: 1em 2em;
   table-layout: fixed;
   border-collapse: collapse;
-
+  line-height: 1.6;
 }
 
 #list thead {
@@ -37,16 +56,16 @@ a.date.select {
   width: 4%;
 }
 
-#list #courttitle {
-  width: 30%;
+#list #identity {
+  width: 36%;
 }
 
-#list #summary {
+#list #imprisonment {
   width: 36%;
 }
 
 #list #state {
-  width: 30%;
+  width: 24%;
 }
 
 #list td {
@@ -64,7 +83,37 @@ a.date.select {
   width: 25%;
 }
 
+.button {
+  font-size: 1em;
+  color: #000;
+  text-decoration: none;
+  background: #CCC;
+  border: none;
+  border-radius: 5px;
+  padding: 0.25em 0.5em;
+  line-height: 1;
+  margin: 0 0.25em;
+}
+
 input {
   font-size: 1em;
   padding: 0.2em 0.4em;
+}
+
+#pagination, #show-type {
+  position: relative;
+  text-align: center;
+  padding: 0.5em;
+}
+
+.pagination-page {
+  margin: 0 0.25em;
+}
+
+.highlight {
+  background: #ACE;
+}
+
+article {
+  margin: 0.5em auto;
 }
