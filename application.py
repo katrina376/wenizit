@@ -15,12 +15,12 @@ keywords = [{'text':'竊', 'count': 30}]
 def find_char(s, ch):
     return [i for i, ltr in enumerate(s) if ltr == ch]
 
-# MONGODB_URI = os.environ['MONGODB_URI']
-client = MongoClient('localhost',)
-DB_PASSWORD = os.environ['DB_PASSWORD']
-db = client.the_database
-db.authenticate('editor', DB_PASSWORD, source='wenizit')
-db = client.wenizit
+uri = os.environ['MONGODB_URI']
+client = MongoClient(uri,
+                     connectTimeoutMS=30000,
+                     socketTimeoutMS=None,
+                     socketKeepAlive=True)
+db = client.get_default_database()
 judgements = db.judgements
 
 @app.route('/')

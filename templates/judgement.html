@@ -49,31 +49,6 @@
       </article>
     </section>
     <section id="panel">
-      <div>文中共有 {{ count_of_date }} 個日期，如下：</div>
-      <ul>
-        {% for c in content -%}
-          {%-if c['is_date'] -%}
-            {%- if c['select'] -%}
-              <li>
-                <a href="#" id="list-date-{{ loop.index }}" class="date article-date select">
-                {%- for char in c['chars'] -%}
-                  {{ char['char'] }}
-                {%- endfor -%}
-                </a>
-              </li>
-            {%- else -%}
-              <li>
-                <a href="#" id="list-date-{{ loop.index }}" class="date article-date">
-                {%- for char in c['chars'] -%}
-                  {{ char['char'] }}
-                {%- endfor -%}
-                </a>
-              </li>
-            {%- endif -%}
-          {%- endif -%}
-        {%- endfor %}
-      </ul>
-      <hr/>
       <form method="post" action="/j/{{ judgement._id }}/save">
         <div>已經選擇的日期如下：</div>
         <ul id="chosen-date">

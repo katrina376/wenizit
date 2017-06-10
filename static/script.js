@@ -40,7 +40,7 @@ for (var i = 0; i < $$('.article-date').length; ++i) {
     }
     var idx = ev.target.id.split('-')[2];
     $('#article-date-' + idx).className += ' select';
-    $('#list-date-' + idx).className += ' select';
+    //$('#list-date-' + idx).className += ' select';
     add_date($('#article-date-' + idx).textContent)
   });
 }
