@@ -10,10 +10,10 @@ import re
 
 # SETTINGS
 regexp = r'([\d同一二三四五六七八九十]+年[、同某\d一二三四五六七八九十零]*月[初間某\d卅廿一二三四五六七八九十零]+日?)'
-keywords = [{'text':'竊', 'count': 30}]
-
-def find_char(s, ch):
-    return [i for i, ltr in enumerate(s) if ltr == ch]
+keywords = [
+    {'text':'竊', 'prev': 30, 'color': 'light'},
+    {'text':'引用', 'prev': 0, 'color': 'important'}
+]
 
 uri = os.environ['MONGODB_URI']
 client = MongoClient(uri,
@@ -70,15 +70,18 @@ def index():
 def judgement(jid=None):
     j = judgements.find_one({'_id': ObjectId(jid)})
     raw = j['事實理由']
-    process = list(({'idx': idx, 'char': char, 'highlight': False} for idx, char in enumerate(raw)))
+    process = list(({'idx': idx, 'char': char, 'highlight': False, 'color': ''} for idx, char in enumerate(raw)))
 
     # Search for highlight
     for keyword in keywords:
-        highlights = find_char(raw, keyword['text'])
-        for idx in highlights:
-            start = max(idx - keyword['count'], 0)
-            for d in process[start:idx]:
+        highlights = re.finditer(re.compile(keyword['text']), raw)
+        print(highlights)
+        for m in highlights:
+            start = max(m.start() - keyword['prev'], 0)
+            end = m.end()
+            for d in process[start:end]:
                 d['highlight'] = True
+                d['color'] = keyword['color']
 
     split = re.split(regexp, raw)
     content = []

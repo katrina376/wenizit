@@ -16,6 +16,11 @@ article {
   background: #ACE;
 }
 
+.highlight.important {
+  background: #c92a2a;
+  color: #fff;
+}
+
 #content {
   margin: 0 auto auto 0;
   padding: 0.8em 1.6em;
@@ -24,16 +29,14 @@ article {
 }
 
 #content a.date,
-#content a.date .highlight {
+#content a.date span.highlight {
   background: #fab005;
-  text-decoration: none;
   color: #000;
 }
 
 #content a.date:hover,
-#content a.date:hover .highlight {
+#content a.date:hover span.highlight {
   background: #d9480f;
-  text-decoration: none;
   color: #fff;
 }
 
@@ -43,14 +46,14 @@ a.date::before, a.date::after {
 
 a.date.select,
 #content a.date.select,
-#content a.date.select .highlight {
+#content a.date.select span.highlight {
   background: #20c997;
   color: #000;
 }
 
 a.date.select:hover,
 #content a.date.select:hover,
-#content a.date.select:hover .highlight{
+#content a.date.select:hover span.highlight{
   background: #087f5b;
   color: #fff;
 }
