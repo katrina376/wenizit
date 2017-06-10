@@ -32,13 +32,13 @@ def index():
 
     show = request.args.get('show', 'false')
     if show == 'false':
-        query = judgements.find({'state': False})
+        query = judgements.find({'state': False}).sort('_id')
         q = ''
     elif show == 'true':
-        query = judgements.find({'state': True})
+        query = judgements.find({'state': True}).sort('_id')
         q = '&show=true'
     else:
-        query = judgements.find()
+        query = judgements.find().sort('_id')
         q = '&show=both'
 
     part = query.skip((page_num - 1) * per_page).limit(per_page)
@@ -121,22 +121,48 @@ def judgement(jid=None):
 @app.route('/j/<jid>/save', methods=['POST'])
 def save(jid=None):
     try:
-        j = judgements.find_one({'_id': ObjectId(jid)})
+        j = judgements.find({'_id': ObjectId(jid)}).sort("_id").limit(1)
         dates = request.form.getlist('chosen-date')
         judgements.update_one({'_id': ObjectId(jid)},
                               {'$set': {'dates': dates, 'state': True}},
                               upsert=False)
-        return 'Ok! <a href="/">Go back</a> to the list.'
+        n = judgements.find({'_id': {'$gt': ObjectId(jid) },
+                             'state': False}).sort('_id').limit(1)
+        if n.count() > 0:
+            return 'Successfully saved! Go to <a href="/j/{jid}">the next document</a>.'.format(jid=n[0]['_id'])
+        else:
+            return 'Successfully saved! Go back to <a href="/?show=both">the list</a>.'
     except:
         return 'Something went wrong. <a href="/j/{jid}">Go back</a> and try again.'.format(jid=jid)
 
 @app.route('/j/<jid>/pass')
-def skip(jid=None):
+def pass_over(jid=None):
     try:
         j = judgements.find_one({'_id': ObjectId(jid)})
         judgements.update_one({'_id': ObjectId(jid)},
                               {'$set': {'dates': [], 'state': True}},
                               upsert=False)
-        return 'Ok! <a href="/">Go back</a> to the list.'
+        n = judgements.find({'_id': {'$gt': ObjectId(jid) },
+                             'state': False}).sort('_id').limit(1)
+        if n.count() > 0:
+            return 'Successfully saved! Go to <a href="/j/{jid}">the next document</a>.'.format(jid=n[0]['_id'])
+        else:
+            return 'Successfully saved! Go back to <a href="/?show=both">the list</a>.'
+    except:
+        return 'Something went wrong. <a href="/j/{jid}">Go back</a> and try again.'.format(jid=jid)
+
+@app.route('/j/<jid>/skip')
+def skip(jid=None):
+    try:
+        j = judgements.find_one({'_id': ObjectId(jid)})
+        judgements.update_one({'_id': ObjectId(jid)},
+                              {'$set': {'tag': True}},
+                              upsert=False)
+        n = judgements.find({'_id': {'$gt': ObjectId(jid) },
+                             'state': False}).sort('_id').limit(1)
+        if n.count() > 0:
+            return 'Temporarily skipped! Go to <a href="/j/{jid}">the next document</a>.'.format(jid=n[0]['_id'])
+        else:
+        return 'Temporarily skipped! Go back to <a href="/?show=both">the list</a>.'
     except:
         return 'Something went wrong. <a href="/j/{jid}">Go back</a> and try again.'.format(jid=jid)

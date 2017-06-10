@@ -13,12 +13,12 @@ article {
 }
 
 .highlight {
-  background: #ACE;
+  background: #dbe4ff;
 }
 
 .highlight.important {
-  background: #c92a2a;
-  color: #fff;
+  background: #20c997;
+  padding: 0.2em 0;
 }
 
 #content {
@@ -30,32 +30,22 @@ article {
 
 #content a.date,
 #content a.date span.highlight {
+  padding: 0.2em 0;
   background: #fab005;
   color: #000;
 }
 
 #content a.date:hover,
-#content a.date:hover span.highlight {
+#content a.date:hover span.highlight,
+a.date.select,
+#content a.date.select,
+#content a.date.select span.highlight {
   background: #d9480f;
   color: #fff;
 }
 
 a.date::before, a.date::after {
   content: " ";
-}
-
-a.date.select,
-#content a.date.select,
-#content a.date.select span.highlight {
-  background: #20c997;
-  color: #000;
-}
-
-a.date.select:hover,
-#content a.date.select:hover,
-#content a.date.select:hover span.highlight{
-  background: #087f5b;
-  color: #fff;
 }
 
 #list {
@@ -110,6 +100,14 @@ a.date.select:hover,
   padding: 0.25em 0.5em;
   line-height: 1;
   margin: 0 0.25em;
+}
+
+.button#pass {
+  background: #ff8787
+}
+
+.button#save {
+  background: #51cf66
 }
 
 input {
