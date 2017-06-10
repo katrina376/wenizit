@@ -8,6 +8,14 @@ body {
   font-family: sans-serif;
 }
 
+article {
+  margin: 0.5em auto;
+}
+
+.highlight {
+  background: #ACE;
+}
+
 #content {
   margin: 0 auto auto 0;
   padding: 0.8em 1.6em;
@@ -15,13 +23,15 @@ body {
   width: 75%;
 }
 
-#content a.date {
+#content a.date,
+#content a.date .highlight {
   background: #fab005;
   text-decoration: none;
   color: #000;
 }
 
-#content a.date:hover {
+#content a.date:hover,
+#content a.date:hover .highlight {
   background: #d9480f;
   text-decoration: none;
   color: #fff;
@@ -31,12 +41,16 @@ a.date::before, a.date::after {
   content: " ";
 }
 
-a.date.select, #content a.date.select {
+a.date.select,
+#content a.date.select,
+#content a.date.select .highlight {
   background: #20c997;
   color: #000;
 }
 
-a.date.select:hover, #content a.date.select:hover {
+a.date.select:hover,
+#content a.date.select:hover,
+#content a.date.select:hover .highlight{
   background: #087f5b;
   color: #fff;
 }
@@ -108,12 +122,4 @@ input {
 
 .pagination-page {
   margin: 0 0.25em;
-}
-
-.highlight {
-  background: #ACE;
-}
-
-article {
-  margin: 0.5em auto;
 }
