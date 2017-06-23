@@ -112,10 +112,13 @@ def judgement(jid=None):
                 'select': False
             })
 
+    count_of_identity = judgements.find({'identity': j['identity']}).count()
+
     return render_template('judgement.html',
                             content=content,
                             judgement=j,
-                            count_of_date=count_of_date)
+                            count_of_date=count_of_date,
+                            count_of_identity=count_of_identity)
 
 @app.route('/j/<jid>/save', methods=['POST'])
 def save(jid=None):

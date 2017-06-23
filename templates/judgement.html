@@ -49,6 +49,11 @@
       </article>
     </section>
     <section id="panel">
+      <div>
+        <p>本判決 identity：{{ judgement.identity }}</p>
+        <p>該 identity 重複次數：{{ count_of_identity }}</p>
+      </div>
+      <hr/>
       <form method="post" action="/j/{{ judgement._id }}/save" id="form-date">
         <div>已經選擇的日期如下：</div>
         <ul id="chosen-date">
