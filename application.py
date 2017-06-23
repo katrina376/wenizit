@@ -75,7 +75,6 @@ def judgement(jid=None):
     # Search for highlight
     for keyword in keywords:
         highlights = re.finditer(re.compile(keyword['text']), raw)
-        print(highlights)
         for m in highlights:
             start = max(m.start() - keyword['prev'], 0)
             end = m.end()

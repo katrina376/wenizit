@@ -40,7 +40,6 @@ for (var i = 0; i < $$('.article-date').length; ++i) {
     }
     var idx = ev.target.id.split('-')[2];
     $('#article-date-' + idx).className += ' select';
-    //$('#list-date-' + idx).className += ' select';
     add_date($('#article-date-' + idx).textContent)
   });
 }
@@ -56,4 +55,13 @@ $('#add').addEventListener('click', function (ev) {
   ev.preventDefault();
   add_date($('#typein').value);
   $('#typein').value = '';
+})
+
+$('#save').addEventListener('click', function (ev) {
+  ev.preventDefault();
+  if ($$('#chosen-date li').length < 1) {
+    alert('未選擇日期！');
+  } else {
+    $('#form-date').submit();
+  }
 })

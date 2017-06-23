@@ -49,7 +49,7 @@
       </article>
     </section>
     <section id="panel">
-      <form method="post" action="/j/{{ judgement._id }}/save">
+      <form method="post" action="/j/{{ judgement._id }}/save" id="form-date">
         <div>已經選擇的日期如下：</div>
         <ul id="chosen-date">
           {% for d in judgement.dates -%}
