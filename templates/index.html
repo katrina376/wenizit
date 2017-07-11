@@ -7,11 +7,31 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
   </head>
   <body>
+    <div id="record">
+      嗨，{{ username }}，您已經處理完成 {{ finish[username] }} 則判決。
+      {%- if username == 'admin' -%}
+        {%- for user, count in finish.items() -%}
+        {{ user }} 完成 {{ count }} 則。
+        {%- endfor -%}
+      {%- endif %}
+    </div>
     <div id="show-type">
       顯示方式：
-      <a href="/">只顯示未處理</a>
-      <a href="/?show=true">只顯示已處理</a>
-      <a href="/?show=both">兩類皆顯示</a>
+      <a href="/?{{ query_date }}">只顯示未處理</a>
+      <a href="/?show=true{{ query_date }}">只顯示已處理</a>
+      <a href="/?show=both{{ query_date }}">兩類皆顯示</a>
+    </div>
+    <div id="search-time">
+      <form id="search-time-box" method="get" action="/">
+        <p>
+          <label>搜尋日期（阿拉伯數字）：</label>
+          民國 <input name="syr" size="5" class="search" value="{{search.year}}"/> 年 <input name="smth" size="5" class="search" value="{{search.month}}"/> 月 <input name="sd" size="5" class="search" value="{{search.day}}"/> 日
+        </p>
+        <p>
+          <button class="button" type="submit">開始搜尋</button>
+          <button class="button" type="button" id="cancel">取消搜尋</button>
+        </p>
+      </form>
     </div>
     <table id="list">
       <thead>
@@ -30,7 +50,7 @@
           <td>{{ j.imprisonment }}</td>
           <td>
             {% if j.state == True -%}
-            已處理，
+            {{ j.editor }} 已處理，
               {%- if j.dates|count > 0 -%}
               選擇日期：
               <ul>
@@ -58,13 +78,14 @@
         {%- if idx == current_page_num -%}
           <span class="pagination-page">{{ idx }}</span>
         {%- elif idx == lb -%}
-          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">...</a>
+          <a class="pagination-page" href="/?p={{ idx }}{{ query_show }}{{ query_date }}">...</a>
         {%- elif idx == ub -%}
-          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">...</a>
+          <a class="pagination-page" href="/?p={{ idx }}{{ query_show }}{{ query_date }}">...</a>
         {%- else -%}
-          <a class="pagination-page" href="/?p={{ idx }}{{ q }}">{{ idx }}</a>
+          <a class="pagination-page" href="/?p={{ idx }}{{ query_show }}{{ query_date }}">{{ idx }}</a>
         {%- endif -%}
       {%- endfor %}
     </div>
+    <script src="/static/index.js"></script>
   </body>
 </html>

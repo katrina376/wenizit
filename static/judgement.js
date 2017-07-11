@@ -57,11 +57,11 @@ $('#add').addEventListener('click', function (ev) {
   $('#typein').value = '';
 })
 
-$('#save').addEventListener('click', function (ev) {
+$('#form-date').addEventListener('submit', function (ev) {
   ev.preventDefault();
   if ($$('#chosen-date li').length < 1) {
     alert('未選擇日期！');
   } else {
-    $('#form-date').submit();
+    ev.target.submit();
   }
 })

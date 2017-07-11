@@ -115,10 +115,12 @@ input {
   padding: 0.2em 0.4em;
 }
 
-#pagination, #show-type {
+#pagination, #show-type, #search-time, #record {
   position: relative;
   text-align: center;
-  padding: 0.5em;
+  margin: 0 2em;
+  padding: 1em;
+  border-bottom: 1px solid #CCC;
 }
 
 .pagination-page {
